@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset = "utf-8">
+        <title>Animal Guessing Game</title>
+    </head>
+    <body>
+        <h1>Animal Guessing Game</h1>
+        <button type = "button" onclick = "runGame()">Start Game</button>
+    </body>
+        <script>
+            const ANIMAL_ARRAY = ['sloth', 'llama', 'ant', 'dog', 'wolf', 'human', 'owl'];
+
+            function runGame(){
+                let guess = '';
+                let isCorrect = false;
+                let numTries = 0;
+                let targetIndex = Math.floor(Math.random() * ANIMAL_ARRAY.length);
+                let targetAnimal = ANIMAL_ARRAY[targetIndex];
+                console.log(targetAnimal)
+
+                do{
+                    guess = prompt('I\'m thinking of one of the following animals:\n\n '+ ANIMAL_ARRAY.sort().join(', ') + '\n\nWhich animal am I thinking of?');
+                    if (guess === null){
+                        alert('The game has been ABORTED');
+                        return;
+                    }
+                    numTries++;
+                    guess = guess.toLowerCase();
+                    isCorrect = checkGuess(guess, targetAnimal, numTries)
+                    
+
+                }while (!isCorrect)
+                alert('Congratulations, you guessed correctly! The animal was ' + targetAnimal + '.\n\nIt took you ' + numTries + ' tries to guess correctly!');
+            } 
+
+            function checkGuess(guess, targetAnimal, numTries){
+                let isCorrect = false;
+
+                if(!ANIMAL_ARRAY.includes(guess)){
+                    alert('We don\'t recognize your animal, please try again.');
+                } else if (guess < targetAnimal){
+                    alert('Your guess is alphabetically lower than the correct answer. This is guess # ' + numTries + '. Try again.');
+                } else if (guess > targetAnimal){
+                    alert('Your guess is alphabetically higher than the correct answer. This is guess # ' + numTries + '. Try again.');
+                } else{
+                isCorrect = true;
+                }
+                return isCorrect;
+
+
+            }
+        </script>
+    
+    
+</html>
